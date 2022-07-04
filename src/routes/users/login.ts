@@ -2,10 +2,7 @@ import { FastifyInstance } from 'fastify';
 import { Type } from '@sinclair/typebox';
 import { prismaClient } from '../../prisma';
 import bcrypt from 'bcrypt';
-import { ObjectId } from 'bson';
-
-export const tokens: string[] = [];
-export const tokenUsers: { [token: string]: string } = {};
+import { UserWithoutId } from '../../TypeObject/TypeOpjectUser';
 
 export default async function (server: FastifyInstance) {
 	server.route({
@@ -33,12 +30,14 @@ export default async function (server: FastifyInstance) {
 			if (!correct) {
 				return { mes: 'incorrect password' };
 			}
-			const newToken = new ObjectId().toHexString();
-
-			tokens.push(newToken);
-			tokenUsers[newToken] = email;
-
-			return newToken;
+			const token = server.jwt.sign({
+				id: UserWithoutId.user_id,
+				email: UserWithoutId.email,
+				name: UserWithoutId.name,
+			});
+			return {
+				token,
+			};
 		},
 	});
 }

@@ -25,7 +25,9 @@ export default async function (server: FastifyInstance) {
 
 			const Course = await prismaClient.cours.findMany();
 			if (!query.text) return Course;
-
+			if (query.text !== undefined) {
+				return reply.send('course not found');
+			}
 			const fuse = new Fuse(Course, {
 				includeScore: true,
 				isCaseSensitive: false,
@@ -33,6 +35,7 @@ export default async function (server: FastifyInstance) {
 			});
 
 			const result: Cours[] = fuse.search(query.text).map((r) => r.item);
+
 			return result;
 		},
 	});

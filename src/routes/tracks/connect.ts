@@ -5,20 +5,20 @@ import { Type } from '@sinclair/typebox';
 export default async function (server: FastifyInstance) {
 	server.route({
 		method: 'PUT',
-		url: '/courses',
+		url: '/tracks',
 		schema: {
-			summary: 'connect between course_id and user_id',
-			tags: ['cours'],
+			summary: 'connect between track_id and user_id',
+			tags: ['track'],
 			body: Type.Object({
-				cours_id: Type.String(),
+				track_id: Type.String(),
 				user_id: Type.String(),
 			}),
 		},
 		handler: async (request, reply) => {
-			const { cours_id, user_id } = request.body as any;
-			const connect = await prismaClient.cours.update({
+			const { track_id, user_id } = request.body as any;
+			const connect = await prismaClient.track.update({
 				where: {
-					cours_id: cours_id,
+					track_id: track_id,
 				},
 				data: {
 					user: {
