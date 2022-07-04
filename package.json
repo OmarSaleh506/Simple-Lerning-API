@@ -3,9 +3,9 @@
 	"version": "1.0.0",
 	"main": "index.js",
 	"scripts": {
-		"dev": "nodemon src/index.ts | pino-colada",
+		"dev": "nodemon -r dotenv/config src/index.ts | pino-colada",
 		"build": "rm -rf dist && tsc",
-		"start": "tsc && node dist/index.js"
+		"start": "node dist/index.js"
 	},
 	"license": "ISC",
 	"dependencies": {
