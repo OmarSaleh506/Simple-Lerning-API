@@ -1,0 +1,77 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  user_id     String    @id @default(auto()) @map("_id") @db.ObjectId
+  name        String
+  email       String    @unique
+  password    String
+  secret_key  String?
+  role        userRole  @default(student)
+  cours_ids   String[]  @db.ObjectId
+  cours       Cours[]   @relation(fields: [cours_ids], references: [cours_id])
+  track_ids   String[]  @db.ObjectId
+  track       Track[]   @relation(fields: [track_ids], references: [track_id])
+  project_ids String[]  @db.ObjectId
+  project     Project[] @relation(fields: [project_ids], references: [project_id])
+  profile     Profile?
+
+  @@map("users")
+}
+
+enum userRole {
+  admin
+  student
+}
+
+model Profile {
+  profile_id String  @id @default(auto()) @map("_id") @db.ObjectId
+  first_name String
+  last_name  String
+  age        Int
+  user_id    String? @unique @db.ObjectId
+  User       User?   @relation(fields: [user_id], references: [user_id])
+
+  @@map("profiles")
+}
+
+model Cours {
+  cours_id    String   @id @default(auto()) @map("_id") @db.ObjectId
+  name        String
+  description String
+  lessons     String
+  readcontent Boolean  @default(true)
+  user_ids    String[] @db.ObjectId
+  user        User[]   @relation(fields: [user_ids], references: [user_id])
+
+  @@map("courses")
+}
+
+model Track {
+  track_id    String   @id @default(auto()) @map("_id") @db.ObjectId
+  name        String
+  description String
+  readcontent Boolean  @default(true)
+  user_ids    String[] @db.ObjectId
+  user        User[]   @relation(fields: [user_ids], references: [user_id])
+
+
+  @@map("tracks")
+}
+
+model Project {
+  project_id  String   @id @default(auto()) @map("_id") @db.ObjectId
+  name        String
+  description String
+  readcontent Boolean  @default(true)
+  user_ids    String[] @db.ObjectId
+  user        User[]   @relation(fields: [user_ids], references: [user_id])
+
+  @@map("projects")
+}

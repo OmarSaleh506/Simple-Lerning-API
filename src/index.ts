@@ -1,6 +1,9 @@
-import { server } from './server';
+import { listen } from './server';
+import { connectDb } from './prisma';
 
-server.listen({ port: 5000 }).catch((err) => {
-	server.log.error(err);
-	process.exit(1);
-});
+async function start() {
+	await connectDb();
+	listen();
+}
+
+start();
