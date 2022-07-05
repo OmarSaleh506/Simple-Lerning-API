@@ -5,7 +5,6 @@ import { Tracks } from '../../TypeObject/TypeObjectTrack';
 import _ from 'lodash';
 
 export default async function (server: FastifyInstance) {
-	//addAuthorization(server);
 	server.route({
 		method: 'GET',
 		url: '/tracks',

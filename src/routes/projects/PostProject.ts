@@ -1,11 +1,11 @@
 import { FastifyInstance } from 'fastify';
 import { addAuthorization } from '../../hooks/auth';
-import { ProjectWithoutId } from '../../TypeObject/TypeObjectProject'
+import { ProjectWithoutId } from '../../TypeObject/TypeObjectProject';
 import { prismaClient } from '../../prisma';
 
-export default async function(server: FastifyInstance){
-    //addAuthorization(server);
-    server.route({
+export default async function (server: FastifyInstance) {
+	addAuthorization(server);
+	server.route({
 		method: 'POST',
 		url: '/project',
 		schema: {
@@ -21,4 +21,3 @@ export default async function(server: FastifyInstance){
 		},
 	});
 }
-    

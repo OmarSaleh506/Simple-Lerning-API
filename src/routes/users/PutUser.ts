@@ -7,7 +7,7 @@ import {  User } from '@prisma/client'
 import _ from 'lodash';
 
 export default async function(server: FastifyInstance){
-    //addAuthorization(server);
+    addAuthorization(server);
 server.route({
     method: 'PUT',
     url: '/user',

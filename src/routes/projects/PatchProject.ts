@@ -5,7 +5,7 @@ import { PartialProjectWithoutId, ProjectParams } from '../../TypeObject/TypeObj
 import { ObjectId } from 'bson';
 
 export default async function(server: FastifyInstance){
-     //addAuthorization(server);
+     addAuthorization(server);
      server.route({
         method: 'PATCH',
         url: '/project/:project_id',

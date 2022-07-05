@@ -1,13 +1,9 @@
 import { FastifyInstance } from 'fastify';
-//import { addAuthorization } from '../../hooks/auth';
 import { UserWithoutId } from '../../TypeObject/TypeOpjectUser';
 import { prismaClient } from '../../prisma';
 import bcrypt from 'bcrypt';
 
-// import * as jwt from 'jsonwebtoken';
-
 const saltRounds = 10;
-
 export default async function (server: FastifyInstance) {
 	server.route({
 		method: 'POST',

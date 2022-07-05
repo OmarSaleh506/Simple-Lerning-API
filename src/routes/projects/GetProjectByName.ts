@@ -1,6 +1,5 @@
 import { Type } from '@sinclair/typebox';
 import { FastifyInstance } from 'fastify';
-import { addAuthorization } from '../../hooks/auth';
 import { prismaClient } from '../../prisma';
 import { Projects, GetProjectQuery } from '../../TypeObject/TypeObjectProject';
 import Fuse from 'fuse.js';
@@ -8,7 +7,6 @@ import _ from 'lodash';
 import { Project } from '@prisma/client';
 
 export default async function (server: FastifyInstance) {
-	//addAuthorization(server);
 	server.route({
 		method: 'GET',
 		url: '/project',
@@ -25,7 +23,9 @@ export default async function (server: FastifyInstance) {
 
 			const projects = await prismaClient.project.findMany();
 			if (!query.text) return projects;
-
+			if (query.text !== undefined) {
+				return reply.send('project not found');
+			}
 			const fuse = new Fuse(projects, {
 				includeScore: true,
 				isCaseSensitive: false,

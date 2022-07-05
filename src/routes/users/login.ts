@@ -2,7 +2,6 @@ import { FastifyInstance } from 'fastify';
 import { Type } from '@sinclair/typebox';
 import { prismaClient } from '../../prisma';
 import bcrypt from 'bcrypt';
-import { UserWithoutId } from '../../TypeObject/TypeOpjectUser';
 
 export default async function (server: FastifyInstance) {
 	server.route({
@@ -28,15 +27,20 @@ export default async function (server: FastifyInstance) {
 			}
 			const correct = await bcrypt.compare(password, findUser?.password as string);
 			if (!correct) {
-				return { mes: 'incorrect password' };
+				reply.unauthorized("mes: 'incorrect password'");
+				return;
 			}
+
 			const token = server.jwt.sign({
-				id: UserWithoutId.user_id,
-				email: UserWithoutId.email,
-				name: UserWithoutId.name,
+				id: findUser.user_id,
+				email: findUser.email,
+				name: findUser.name,
 			});
 			return {
+				id: findUser.user_id,
 				token,
+				type: 'SignIn',
+				role: findUser.role,
 			};
 		},
 	});

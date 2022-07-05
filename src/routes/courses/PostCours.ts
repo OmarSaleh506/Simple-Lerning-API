@@ -4,7 +4,7 @@ import { CoursWithoutId } from '../../TypeObject/TypeObjectCours';
 import { prismaClient } from '../../prisma';
 
 export default async function (server: FastifyInstance) {
-	//addAuthorization(server);
+	addAuthorization(server);
 
 	server.route({
 		method: 'POST',

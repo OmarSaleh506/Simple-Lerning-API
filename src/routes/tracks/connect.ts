@@ -1,8 +1,11 @@
 import { FastifyInstance } from 'fastify';
 import { prismaClient } from '../../prisma';
 import { Type } from '@sinclair/typebox';
+import { addAuthorization } from '../../hooks/auth';
 
 export default async function (server: FastifyInstance) {
+	addAuthorization(server);
+
 	server.route({
 		method: 'PUT',
 		url: '/tracks',

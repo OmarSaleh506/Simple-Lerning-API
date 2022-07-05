@@ -7,7 +7,7 @@ import { Type } from '@sinclair/typebox';
 
 
 export default async function(server: FastifyInstance){
-        //addAuthorization(server);
+        addAuthorization(server);
 
         server.route({
             method: 'GET',

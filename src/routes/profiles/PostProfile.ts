@@ -1,12 +1,11 @@
 import { FastifyInstance } from 'fastify';
 import { addAuthorization } from '../../hooks/auth';
-import { ProfileWithoutId } from '../../TypeObject/TypeObjectProfile'
+import { ProfileWithoutId } from '../../TypeObject/TypeObjectProfile';
 import { prismaClient } from '../../prisma';
 
-
-export default async function(server: FastifyInstance){
-    //addAuthorization(server);
-    server.route({
+export default async function (server: FastifyInstance) {
+	addAuthorization(server);
+	server.route({
 		method: 'POST',
 		url: '/profile',
 		schema: {
@@ -22,4 +21,3 @@ export default async function(server: FastifyInstance){
 		},
 	});
 }
-    

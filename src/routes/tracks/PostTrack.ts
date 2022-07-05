@@ -4,7 +4,7 @@ import { TrackWithoutId } from '../../TypeObject/TypeObjectTrack'
 import { prismaClient } from '../../prisma';
 
 export default async function(server: FastifyInstance){
-    //addAuthorization(server);
+    addAuthorization(server);
 
 server.route({
     method: 'POST',

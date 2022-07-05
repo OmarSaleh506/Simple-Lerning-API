@@ -5,7 +5,6 @@ import { Projects } from '../../TypeObject/TypeObjectProject';
 import _ from 'lodash';
 
 export default async function (server: FastifyInstance) {
-	//addAuthorization(server);
 	server.route({
 		method: 'GET',
 		url: '/projects',

@@ -5,7 +5,7 @@ import { PartialTrackWithoutId, TrackParams } from '../../TypeObject/TypeObjectT
 import { ObjectId } from 'bson';
 
 export default async function(server: FastifyInstance){
-   // addAuthorization(server);
+    addAuthorization(server);
 
     server.route({
         method: 'PATCH',

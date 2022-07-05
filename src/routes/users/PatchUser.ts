@@ -5,7 +5,7 @@ import { PartialUserWithoutId,UserParams } from '../../TypeObject/TypeOpjectUser
 import { ObjectId } from 'bson';
 
 export default async function(server: FastifyInstance){
-    //addAuthorization(server);
+    addAuthorization(server);
     server.route({
         method: 'PATCH',
         url: '/user/:user_id',

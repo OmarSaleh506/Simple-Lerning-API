@@ -7,7 +7,7 @@ import { ObjectId } from 'bson';
 
 
 export default async function(server: FastifyInstance){
-    //addAuthorization(server);
+    addAuthorization(server);
     server.route({
         method: 'DELETE',
         url: '/profile/:profile_id',

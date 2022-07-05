@@ -1,6 +1,5 @@
 import { Type } from '@sinclair/typebox';
 import { FastifyInstance } from 'fastify';
-import { addAuthorization } from '../../hooks/auth';
 import { prismaClient } from '../../prisma';
 import { Tracks, GetTrackQuery } from '../../TypeObject/TypeObjectTrack';
 import Fuse from 'fuse.js';
@@ -8,7 +7,6 @@ import _ from 'lodash';
 import { Track } from '@prisma/client';
 
 export default async function (server: FastifyInstance) {
-	//addAuthorization(server);
 	server.route({
 		method: 'GET',
 		url: '/track',
@@ -25,7 +23,9 @@ export default async function (server: FastifyInstance) {
 
 			const tracks = await prismaClient.track.findMany();
 			if (!query.text) return tracks;
-
+			if (query.text !== undefined) {
+				return reply.send('track not found');
+			}
 			const fuse = new Fuse(tracks, {
 				includeScore: true,
 				isCaseSensitive: false,
