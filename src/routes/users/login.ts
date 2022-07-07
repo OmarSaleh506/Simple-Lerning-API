@@ -27,7 +27,7 @@ export default async function (server: FastifyInstance) {
 			}
 			const correct = await bcrypt.compare(password, findUser?.password as string);
 			if (!correct) {
-				reply.unauthorized("mes: 'incorrect password'");
+				reply.unauthorized();
 				return;
 			}
 
